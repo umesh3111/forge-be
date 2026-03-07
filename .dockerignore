@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+
+# Environment variables (should be passed at runtime)
+.env
+.env.local
+.env.production
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Documentation and markdown files
+*.md
+!README.md
+
+# Test files
+test/
+tests/
+*.test.ts
+*.spec.ts
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Misc
+coverage/
+.nyc_output/ 
