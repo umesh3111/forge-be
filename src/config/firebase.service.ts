@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin';
-import { getConfig } from './config.service';
 
 let firebaseApp: admin.app.App | null = null;
 
@@ -8,9 +7,9 @@ export function initializeFirebase(): admin.app.App {
     return firebaseApp;
   }
 
-  const projectId = getConfig('FIREBASE_PROJECT_ID');
-  const privateKey = getConfig('FIREBASE_PRIVATE_KEY')?.replace(/\\n/g, '\n');
-  const clientEmail = getConfig('FIREBASE_CLIENT_EMAIL');
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 
   if (!projectId || !privateKey || !clientEmail) {
     throw new Error('Missing Firebase configuration');

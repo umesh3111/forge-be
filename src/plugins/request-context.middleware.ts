@@ -21,8 +21,8 @@ export async function requestContextMiddleware(
   store.set('requestId', requestId);
 
   // If user is authenticated, add user ID to context
-  if (request.user?.uid) {
-    store.set('userId', request.user.uid);
+  if (request.user?.userId) {
+    store.set('userId', request.user.userId);
   }
 
   // Run the rest of the request in this context
@@ -33,7 +33,7 @@ export async function requestContextMiddleware(
         requestId,
         userAgent: request.headers['user-agent'],
         ip: request.ip,
-        userId: request.user?.uid
+        userId: request.user?.userId,
       });
 
       // Add request ID to response headers for tracing

@@ -4,12 +4,12 @@ import { FastifySwaggerUiOptions } from '@fastify/swagger-ui';
 export const swaggerOptions: FastifyDynamicSwaggerOptions = {
   openapi: {
     info: {
-      title: 'Fastify User API',
-      description: 'API documentation for the User CRUD service with Firebase Authentication',
+      title: 'Forge Fitness API',
+      description: 'AI-powered personal fitness coach backend',
       version: '1.0.0',
     },
     servers: [
-      { url: 'http://localhost:8080', description: 'Local server' },
+      { url: 'http://localhost:3000', description: 'Local server' },
     ],
     components: {
       securitySchemes: {
@@ -17,15 +17,11 @@ export const swaggerOptions: FastifyDynamicSwaggerOptions = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          description: 'Firebase ID Token'
-        }
-      }
+          description: 'JWT token from POST /api/users',
+        },
+      },
     },
-    security: [
-      {
-        bearerAuth: []
-      }
-    ]
+    security: [{ bearerAuth: [] }],
   },
 };
 
@@ -35,4 +31,4 @@ export const swaggerUiOptions: FastifySwaggerUiOptions = {
     docExpansion: 'list',
     deepLinking: false,
   },
-}; 
+};

@@ -85,16 +85,25 @@ src/
 
 ## PHASE 1 — Infrastructure & Project Setup
 
-### TASK 1.1 — Environment & Config Layer
-**Agent:** Developer  
+### TASK 1.1 — Environment & Config Layer ✅ DONE
+**Agent:** Developer
 **Goal:** Create the config module and environment validation
 
-**Deliverables:**
-- `src/config.ts` that reads and validates all env vars using Zod
-- `.env.example` with all required keys
-- Fastify server bootstrapped in `src/server.ts` with health check route `GET /health`
+**Implementation notes:**
+- Using `@sinclair/typebox` for validation (not Zod) — consistent with project conventions
+- Config lives at `src/config/config.service.ts` (not `src/config.ts`) — follows olly-be structure
+- Dev server uses `tsx watch` (replaces nodemon + ts-node)
+- Health route is in `src/modules/health/health.routes.ts`
+- Legacy Firebase/MongoDB files retained but decoupled from new config (use `process.env` directly)
 
-**Required env vars to support:**
+**Deliverables:**
+- `src/config/config.service.ts` — TypeBox-validated config, fails fast on missing vars
+- `.env.example` with all required keys
+- `src/modules/health/health.routes.ts` — `GET /health` with TypeBox schema
+- `src/server.ts` — clean Fastify startup, SIGTERM + SIGINT graceful shutdown
+- Updated `package.json` scripts: `dev`, `build`, `migrate`, `test`, `test:integration`
+
+**Required env vars:**
 ```
 DATABASE_URL
 REDIS_URL
@@ -102,13 +111,17 @@ ANTHROPIC_API_KEY
 MEM0_API_KEY
 JWT_SECRET
 PORT (default 3000)
-NODE_ENV
+NODE_ENV (default development)
+LOG_LEVEL (default info)
+GCP_PROJECT_ID (optional)
 ```
 
 **QA Checklist:**
-- [ ] `GET /health` returns `{ status: "ok", timestamp: ... }`
-- [ ] Server fails fast with clear error if required env vars are missing
-- [ ] Config values are typed, not raw strings where possible
+- [x] `GET /health` returns `{ status: "ok", timestamp: ... }`
+- [x] Server fails fast with clear error if required env vars are missing
+- [x] Config values are typed via `Static<typeof ConfigSchema>`
+- [x] Swagger at `/docs` shows "Forge Fitness API"
+- [x] `tsc --noEmit` passes with zero errors
 
 ---
 

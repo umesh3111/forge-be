@@ -1,9 +1,5 @@
 export interface AuthenticatedUser {
-  uid: string;
-  email?: string;
-  name?: string;
-  picture?: string;
-  email_verified?: boolean;
+  userId: string;
 }
 
 declare module 'fastify' {

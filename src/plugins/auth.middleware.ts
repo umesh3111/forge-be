@@ -45,20 +45,15 @@ export async function authMiddleware(
     const auth = getFirebaseAuth();
     const decodedToken = await auth.verifyIdToken(token);
     
-    // Extract user information from the decoded token
+    // Map Firebase UID to the shared userId field
+    // NOTE: This middleware will be replaced by JWT auth in Task 2.1
     request.user = {
-      uid: decodedToken.uid,
-      email: decodedToken.email,
-      name: decodedToken.name,
-      picture: decodedToken.picture,
-      email_verified: decodedToken.email_verified,
+      userId: decodedToken.uid,
     };
 
     logAuth('User authenticated successfully', decodedToken.uid, {
-      email: decodedToken.email,
-      emailVerified: decodedToken.email_verified,
       url: request.url,
-      method: request.method
+      method: request.method,
     });
 
   } catch (error) {

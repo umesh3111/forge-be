@@ -16,7 +16,7 @@ async function logToCloud(type: 'log' | 'warn' | 'error' | 'info', logDetails: I
   const spanId = trace.getActiveSpan()?.spanContext().spanId;
 
   // Only need project ID - Cloud Run provides automatic authentication
-  const projectId = getConfig('GCP_PROJECT_ID') || getConfig('FIREBASE_PROJECT_ID');
+  const projectId = getConfig('GCP_PROJECT_ID');
 
   if (!projectId) {
     console.warn('⚠️ No GCP Project ID found, falling back to console logging');

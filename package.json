@@ -1,14 +1,16 @@
 {
-  "name": "fastify-backend",
+  "name": "forge-be",
   "version": "1.0.0",
-  "description": "A Fastify REST API with user management, MongoDB integration, Firebase Authentication, GCP Cloud Logging, and Swagger documentation",
+  "description": "Forge — AI-powered personal fitness coach backend",
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon -r tsconfig-paths/register src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "seed": "ts-node -r tsconfig-paths/register src/database/seed.ts",
-    "docker:db": "docker-compose up -d"
+    "migrate": "tsx src/db/migrate.ts",
+    "test": "node --test src/**/*.test.ts",
+    "test:integration": "node --test tests/integration/**/*.test.ts",
+    "docker:db": "docker-compose -f docker-compose-database.yaml up -d"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -27,7 +29,8 @@
     "openai": "^4.28.0",
     "pino": "^8.19.0",
     "pino-pretty": "^10.3.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
@@ -35,6 +38,7 @@
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.4.2"
   }
 }

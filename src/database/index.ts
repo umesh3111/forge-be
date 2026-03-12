@@ -1,5 +1,4 @@
 import { MongoClient, Db } from "mongodb";
-import { getConfig } from "../config/config.service";
 
 class DatabaseConnection {
   private client: MongoClient | null = null;
@@ -10,15 +9,15 @@ class DatabaseConnection {
       return; // Already connected
     }
 
-    const uri = getConfig("MONGODB_URI");
+    const uri = process.env.MONGODB_URI;
     if (!uri) {
       throw new Error("MONGODB_URI environment variable is required");
     }
 
     this.client = new MongoClient(uri);
     await this.client.connect();
-    
-    const dbName = getConfig("DB_NAME");
+
+    const dbName = process.env.DB_NAME;
     if (!dbName) {
       throw new Error("DB_NAME environment variable is required");
     }
